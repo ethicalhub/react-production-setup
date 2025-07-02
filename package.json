@@ -9,6 +9,7 @@
         "lint:eslint": "eslint",
         "format:check": "prettier --check .",
         "format:fix": "prettier --write .",
+        "lint:stylelint": "stylelint **/*.css",
         "build": "tsc -b && vite build",
         "preview": "vite preview"
     },
@@ -31,9 +32,18 @@
         "eslint-plugin-react-refresh": "^0.4.20",
         "globals": "^16.2.0",
         "husky": "^9.1.7",
+        "i": "^0.3.7",
+        "npm": "^11.4.2",
         "prettier": "3.6.2",
+        "stylelint": "^16.21.0",
+        "stylelint-config-standard": "^38.0.0",
+        "stylelint-config-tailwindcss": "^1.0.0",
         "typescript": "~5.8.3",
         "typescript-eslint": "^8.34.1",
         "vite": "^7.0.0"
-    }
+    },
+    "main": "index.js",
+    "repository": "https://github.com/ethicalhub/react-production-setup.git",
+    "author": "ethicalhub <yasiransari.elith@gmail.com>",
+    "license": "MIT"
 }
