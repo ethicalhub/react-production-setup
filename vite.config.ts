@@ -1,8 +1,56 @@
+import { dirname } from 'path'
+import { fileURLToPath } from 'url'
 import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react'
-import { defineConfig } from 'vite'
+import { defineConfig, loadEnv, type ServerOptions } from 'vite'
 
 // https://vite.dev/config/
-export default defineConfig({
-    plugins: [react(), tailwindcss()]
+
+type TMode = 'development' | 'production' | 'test'
+interface AppEnv {
+    PORT?: string
+    VITE_ENV?: TMode
+}
+
+const validateEnv = (mode: TMode, env: AppEnv) => {
+    const requiredValidators: (keyof AppEnv)[] = ['PORT', 'VITE_ENV']
+
+    for (const key of requiredValidators) {
+        if (!env[key]) {
+            throw new Error(`Environment variable ${key} is required in ${mode} mode.`)
+        }
+    }
+}
+
+const normalizePort = (port: string) => {
+    const normalizedPort = parseInt(port)
+    if (isNaN(normalizedPort)) {
+        throw new Error(`Invalid port number: ${port}`)
+    }
+
+    return normalizedPort
+}
+
+export default defineConfig((mode) => {
+    const envMode = mode.mode as TMode
+    const path = fileURLToPath(import.meta.url)
+    const __dirname = dirname(path)
+
+    const env = loadEnv(envMode, __dirname, '') as unknown as AppEnv
+    validateEnv(envMode, env)
+
+    const port = normalizePort(env.PORT as string)
+
+    const config: ServerOptions = {
+        port: port,
+        open: true
+    }
+    return {
+        plugins: [react(), tailwindcss()],
+        server: config,
+        preview: config,
+        build: {
+            minify: envMode === 'production'
+        }
+    }
 })
