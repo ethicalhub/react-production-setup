@@ -10,10 +10,11 @@ type TMode = 'development' | 'production' | 'test'
 interface AppEnv {
     PORT?: string
     VITE_ENV?: TMode
+    BACKEND_URL_PROXY?: string
 }
 
 const validateEnv = (mode: TMode, env: AppEnv) => {
-    const requiredValidators: (keyof AppEnv)[] = ['PORT', 'VITE_ENV']
+    const requiredValidators: (keyof AppEnv)[] = ['PORT', 'VITE_ENV', 'BACKEND_URL_PROXY']
 
     for (const key of requiredValidators) {
         if (!env[key]) {
@@ -43,7 +44,14 @@ export default defineConfig((mode) => {
 
     const config: ServerOptions = {
         port: port,
-        open: true
+        open: true,
+        proxy: {
+            '/api': {
+                target: env.BACKEND_URL_PROXY,
+                changeOrigin: true,
+                rewrite: (path) => path.replace(/^\/api/, '')
+            }
+        }
     }
     return {
         plugins: [react(), tailwindcss()],
