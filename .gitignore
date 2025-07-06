@@ -11,6 +11,9 @@ node_modules
 dist
 dist-ssr
 *.local
+coverage
+.vitest
+.vitest-config.ts
 
 .env
 .env.*

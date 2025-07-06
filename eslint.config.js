@@ -8,7 +8,7 @@ import importPlugin from 'eslint-plugin-import'
 import eslintConfigPrettier from 'eslint-config-prettier'
 
 export default tseslint.config([
-    globalIgnores(['dist', 'node_modules', 'build', 'coverage', 'dist-ssr', '*.local']),
+    globalIgnores(['dist', 'node_modules', 'build', 'coverage', 'dist-ssr', '*.local', 'coverage']),
     {
         files: ['**/*.{ts,tsx}'],
         plugins: {

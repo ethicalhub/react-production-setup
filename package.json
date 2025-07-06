@@ -10,6 +10,7 @@
         "format:fix": "prettier --write .",
         "lint:stylelint": "stylelint **/*.css",
         "test": "vitest --mode test",
+        "test:coverage": "vitest run --coverage --mode test",
         "dev": "vite --mode development",
         "build": "tsc -b && vite build --mode production",
         "preview": "vite preview --mode production"
@@ -30,6 +31,7 @@
         "@types/react": "^19.1.8",
         "@types/react-dom": "^19.1.6",
         "@vitejs/plugin-react": "^4.5.2",
+        "@vitest/coverage-v8": "^3.2.4",
         "eslint": "^9.29.0",
         "eslint-config-prettier": "^10.1.5",
         "eslint-import-resolver-typescript": "^4.4.4",
