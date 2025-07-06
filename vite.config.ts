@@ -1,3 +1,5 @@
+/// <reference types="vitest" />
+
 import path, { dirname } from 'path'
 import { fileURLToPath } from 'url'
 import tailwindcss from '@tailwindcss/vite'
@@ -55,6 +57,12 @@ export default defineConfig((mode) => {
     }
     return {
         plugins: [react(), tailwindcss()],
+        test: {
+            globals: true,
+            environment: 'jsdom',
+            setupFiles: 'src/setupTests.ts',
+            include: ['src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}']
+        },
         resolve: {
             alias: {
                 '@features': path.resolve(__dirname, 'src/features'),
@@ -64,7 +72,10 @@ export default defineConfig((mode) => {
         server: config,
         preview: config,
         build: {
-            minify: envMode === 'production'
+            minify: envMode === 'production',
+            rollupOptions: {
+                external: [/.*\.(test|spec)\.(js|ts|jsx|tsx)$/]
+            }
         }
     }
 })
