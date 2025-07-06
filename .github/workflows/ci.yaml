@@ -33,7 +33,7 @@ jobs:
             - name: Run stylelint
               run: yarn run lint:stylelint
 
-            # - name: Run test coverage
+              # - name: Run test coverage
               # run: yarn run test:coverage
               env:
                   PORT: ${{ secrets.PORT }}
