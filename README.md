@@ -101,6 +101,111 @@ This project documents my personal React production setup using **Yarn** and **V
 
 ---
 
+### 🧾 14. `.env` Files (`.env.production`, `.env.development`, `.env.test`, `.env.sample`)
+
+- Environment variables are separated by environment to handle different configurations cleanly.
+- `.env.production` – variables specific to the deployed build.
+- `.env.development` – local development variables (e.g., proxy paths, debug toggles).
+- `.env.test` – for automated test suites.
+- `.env.sample` – serves as a template file showing required env variables without exposing sensitive values.
+
+**Why it's important**:
+
+- Keeps secrets out of code.
+- Enables seamless switching between environments.
+- Encourages standardized, secure config management.
+
+---
+
+### 🧪 15. Environment Validators in `vite.config.ts`
+
+- A small utility or schema (e.g. using `zod` or manual checks) is added to **validate required environment variables**.
+- Prevents runtime errors caused by missing or incorrect values.
+- Example: throw clear error if `VITE_API_URL` is undefined.
+
+---
+
+### 🌐 16. Proxy URL Setup
+
+- Vite provides a built-in `server.proxy` configuration in `vite.config.ts`.
+- Used for **proxying API requests** during development to avoid CORS issues.
+
+```ts
+server: {
+  proxy: {
+    '/api': 'http://localhost:5000',
+  }
+}
+```
+
+---
+
+### 🧱 17. Screaming Architecture & Folder Structure
+
+- Embraced **Screaming Architecture** – where **folder names scream what the app does**, not how it's done.
+- Promotes domain-driven design:
+    - `/features` → App-specific business logic
+    - `/shared` → Reusable components/utilities across features
+    - `/entities`, `/widgets`, etc. (optional based on complexity)
+
+**Benefits**:
+
+- Better onboarding for new devs.
+- Encourages modular, decoupled code.
+- Easier to scale over time.
+
+---
+
+### 🔗 18. Absolute Path Aliases
+
+- Configured Vite and TS to support aliases like:
+    - `@features/*`
+    - `@shared/*`
+    - `@config/*`
+- Improves import readability and prevents deeply nested `../../` paths.
+
+> Set in both `vite.config.ts` and `tsconfig.json`.
+
+---
+
+### 🧪 19. Unit Testing with Vitest & jsdom
+
+- Testing framework: **Vitest** (lightweight, Vite-native)
+- Added support:
+    - `@testing-library/react`
+    - `@testing-library/jest-dom`
+    - `jsdom` for DOM-like environment
+- Example test written for components, hooks, and utilities.
+
+---
+
+### 🧪 20. Test Coverage
+
+- Coverage is measured using Vitest’s built-in functionality.
+- Output includes `.coverage` folder, and optionally integrated into CI pipeline.
+- Helps track untested areas of the codebase and improves confidence in refactoring.
+
+---
+
+### 🔄 21. CI Pipeline (GitHub Actions)
+
+- Used **GitHub Actions** for continuous integration:
+    - Install dependencies
+    - Run ESLint, Prettier, Stylelint
+    - Run unit tests and generate coverage
+- Ensures code is always tested and styled properly before merging.
+
+---
+
+### 🚨 22. Sentry Integration
+
+- Integrated **Sentry** via `@sentry/react` and `@sentry/vite-plugin`.
+- Captures frontend errors in production.
+- Uses environment variables for DSN and project metadata.
+- Optionally filters out dev/test environment logs.
+
+---
+
 ## 📜 Summary
 
 This setup prioritizes:
@@ -109,22 +214,22 @@ This setup prioritizes:
 - 🧹 Code quality (linters, formatters)
 - 👥 Team standards (commit hooks, conventional commits)
 - 🎨 Consistent styling (Tailwind, Stylelint)
-
-All tooling is automated using Git hooks to reduce manual errors and improve productivity.
-
----
-
-## 🧾 Scripts Included
-
-The setup includes scripts for:
-
-- Starting the dev server
-- Building and previewing production
-- Running ESLint and Stylelint
-- Formatting code
-- Checking formatting consistency
-- Running all relevant linters during pre-commit
+- 🌍 Environment-specific config with `.env` files
+- 🔐 Env var validation to prevent runtime surprises
+- 🌐 Proxy setup for smooth API dev
+- 📁 Screaming architecture for scalable code structure
+- 🔗 Clean imports with absolute path aliases
+- ✅ Unit testing with Vitest, jsdom, and React Testing Library
+- 📊 Coverage reports to track test health
+- 🔁 CI pipelines to enforce standards automatically
+- ⚠️ Sentry to track errors in production
 
 ---
 
 > This serves as both a setup guide and a revision reference for future projects.
+
+# UPNEXT
+
+- CD Pipleine
+- Make it SEO ready
+- Make some basic components integrated
