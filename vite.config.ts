@@ -1,4 +1,4 @@
-import { dirname } from 'path'
+import path, { dirname } from 'path'
 import { fileURLToPath } from 'url'
 import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react'
@@ -34,8 +34,8 @@ const normalizePort = (port: string) => {
 
 export default defineConfig((mode) => {
     const envMode = mode.mode as TMode
-    const path = fileURLToPath(import.meta.url)
-    const __dirname = dirname(path)
+    const currentPath = fileURLToPath(import.meta.url)
+    const __dirname = dirname(currentPath)
 
     const env = loadEnv(envMode, __dirname, '') as unknown as AppEnv
     validateEnv(envMode, env)
@@ -55,6 +55,12 @@ export default defineConfig((mode) => {
     }
     return {
         plugins: [react(), tailwindcss()],
+        resolve: {
+            alias: {
+                '@features': path.resolve(__dirname, 'src/features'),
+                '@shared': path.resolve(__dirname, 'src/shared')
+            }
+        },
         server: config,
         preview: config,
         build: {
