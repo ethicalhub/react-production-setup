@@ -233,3 +233,64 @@ This setup prioritizes:
 - CD Pipleine
 - Make it SEO ready
 - Make some basic components integrated
+
+# 🛠️ Steps to Run in Your Machine
+
+Follow these steps to set up and run the project locally:
+
+---
+
+### 1. Clone the Repository
+
+```bash
+git clone <your-repo-url>
+cd <your-repo-directory>
+```
+
+---
+
+### 2. Install Dependencies
+
+Make sure you have **Yarn** installed, then run:
+
+```bash
+yarn
+```
+
+---
+
+### 3. Initialize Husky
+
+```bash
+npx husky init
+```
+
+> ⚠️ **Note:** Check the `.husky/pre-commit` file. You might need to manually re-add the desired pre-commit command if it's missing.
+
+---
+
+### 4. Refresh the Project
+
+Reload or restart your IDE/editor to ensure Husky and env setup is detected properly.
+
+---
+
+### 5. Create Environment Files
+
+Create the following `.env` files in the root of the project:
+
+- `.env.development`
+- `.env.production`
+- `.env.test`
+
+Fill them with the appropriate environment variables.
+
+---
+
+### 6. Set GitHub Environment Keys
+
+Add the test keys as GitHub environment variables (in your repo settings) to enable the CI pipeline.
+
+---
+
+✅ Your local environment should now be ready to run and develop the project!
